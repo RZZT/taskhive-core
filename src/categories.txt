@@ -1,0 +1,112 @@
+01 Video
+0101 Cinematography
+0102 Directors
+0103 Acting 
+0104 Video footage
+0105 Editing
+0106 Animation
+0107 Video Producers
+
+02 Audio
+0201 Post production
+0202 Voiceovers
+0203 Podcast
+0204 Audio Engineering
+0205 Audio Mixing
+0206 Composing Soundtracks / Music
+0207 Background Music
+
+03 Graphics and Art
+0301 Concept Art
+0302 Graphic Designing
+0304 3D design and modelling
+0305 Illustration
+0306 Animation
+0307 Brochure Design
+0308 Business Card Design
+0309 Paintings and Portraits
+0310 Web Designing
+0311 UI design
+0312 Logo Design
+0313 Other visual arts
+0314 Other graphics
+
+
+04 Reading and Writing
+0401 Journalism
+0402 Literature
+0403 Essays and Theses
+0404 Resumes and Cover Letters
+0405 Presentations
+0406 Content Creation
+0407 Copywriting
+0408 Pamphlets 
+0409 User Manuals
+0410 White Papers
+0411 Translations
+0412 Proof Reading and Editing
+0413 Analysis and Summary Creation
+0414 Homework
+0415 Technical Writing
+0416 LaTeX
+0417 SEO writing
+0418 Speech writing
+0419 Report writing
+
+05 Teaching and Consulting
+0501 Business
+0502 Mathematics and Logic
+0503 Life Sciencies
+0504 Social Sciences
+0505 Linguistics
+0506 Computer Science
+0507 Arts 
+0508 Engineering
+0509 Architecture
+
+06 Engineering 
+0601 Artificial Intelligence
+0602 Debugging
+0603 System and Network administration
+0604 General Security
+0605 Mobile Phone
+0606 Web Development
+0607 CAD Modeling
+0608 Wordpress
+0609 Cryptography
+0610 GNU/Linux Developers
+0611 OSX Developers
+0612 BSD Developers
+0613 Windows Developers
+0614 General softare development
+0615 Electronics
+0616 Circuit Design
+0617 Imaging
+
+
+07 Administrative / Business / Legal
+0701 Data Entry
+0702 Customer Service
+0703 Marketing
+0704 Spreadsheets
+0705 Accounting
+0706 Attorney
+0707 Legal Research
+0708 Data Scientists and Economists
+
+
+08 Misc
+0801 Appliance Repair
+0802 Carpentry
+0803 Pet Sitting
+0804 Handyman
+0805 Laundry and ironing
+0806 Make Up
+0807 Painting
+0808 Electricians
+0809 Flooring
+0810 Roofing
+0811 Interiors
+0812 Homework 
+0813 Mathematics
+0814 Cooking
