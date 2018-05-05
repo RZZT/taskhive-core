@@ -145,15 +145,9 @@ Rectangle {
                 Text {
                     id: username
                     text: window.userData.guest ? "Guest": window.userData.handle
-                    font.pixelSize: 22
+                    font { family: localFont.name; pixelSize: 18; }
+                    font.bold: true
                     color: "#fff"
-                }
-                Rectangle {
-                    anchors.left: username.right
-                    anchors.right: toolBarBottom.right
-                    anchors.bottom: toolBarBottom.bottom
-                    anchors.leftMargin: 10
-                    height: 1
                 }
             }
 

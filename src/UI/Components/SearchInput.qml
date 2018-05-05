@@ -1,10 +1,14 @@
 import QtQuick 2.0
-
+import QtGraphicalEffects 1.0
 Item {
     id: component
     Rectangle {
+        id: rect
         anchors.fill: parent
         color: "#DBDBDB"
+        border.color: "black"
+        border.width: 2
+        radius: 2
     }
     Rectangle {
         anchors.fill: parent
@@ -21,6 +25,8 @@ Item {
             Image {
                 anchors.centerIn: parent
                 source: "../images/icon-search.svg"
+                sourceSize.width: 24
+                sourceSize.height: 24
             }
         }
 
@@ -34,6 +40,7 @@ Item {
             font.pixelSize: 18
             verticalAlignment: TextInput.AlignVCenter
             placeholderText: qsTr("Search by...")
+            font { family: localFont.name; pixelSize: 16; capitalization: Font.Capitalize }
             onTextChanged: {
                     if(droplist.height === 0) {
                         window.currentItem = dropdown
