@@ -48,36 +48,36 @@ Window {
             print(status)
         }
     }
-
-    Row {
-        id: windowTitleCreate
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.leftMargin: 20
-        anchors.topMargin: 20
-        Text {
-            text: window.selectedType === 'Request' ? "Create a Request": "Create an Offer"
-            color: "#fff"
-            font.pixelSize: 25
-        }    }
     Rectangle {
         id: contentInfo
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.rightMargin: 20
-        anchors.leftMargin: 20
-        anchors.top: windowTitleCreate.bottom
-        anchors.topMargin: 10
+        anchors.rightMargin: 40
+        anchors.leftMargin: 40
+        anchors.top: parent.top
+        anchors.topMargin: 40
         Column{
             id: titleColumn
             anchors.left: parent.left
             anchors.right: parent.right
-            spacing: 10
+            spacing: 15
             anchors.top: parent.top
             Text {
-                text: "Task Title"
-                font.pixelSize: 18
+                id: taskTitle
+                text: window.selectedType === 'Request' ? "Create a Request": "Create an Offer"
                 color: "#fff"
+                font { family: localFont.name; pixelSize: 16; bold: true}
+
+            }
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: 2
+            }
+            Text {
+                text: "Task Title"
+                color: "#fff"
+                font { family: localFont.name; pixelSize: 16;}
             }
             LineEdit {
                 id: task_title
@@ -85,77 +85,77 @@ Window {
                 fontSize: 16
                 width: parent.width
             }
-        }
-        Text {
-            id: text1
-            text: "Task Description"
-            font.pixelSize: 18
-            color: "#fff"
-            anchors.top: titleColumn.bottom
-        }
-        TextArea {
-            id: task_body
-            anchors.top: text1.bottom
-            anchors.topMargin: 0
-            anchors.left: parent.left
-            anchors.leftMargin: 0
-            anchors.right: parent.right
-            anchors.rightMargin: 0
-        }
-        Rectangle {
-            id: column
-            height: 400
-            anchors.left: parent.left
-            anchors.right: parent.right
-            color: "transparent"
-            anchors.top: task_body.bottom
-            anchors.topMargin: 10
+            Text {
+                id: text1
+                text: "Task Description"
+                font { family: localFont.name; pixelSize: 16;}
+                color: "#fff"
+            }
+            TextArea {
+                id: task_body
+                anchors.left: parent.left
+                anchors.right: parent.right
+            }
             Row{
                 id: row
                 width: parent.width
-                spacing: 10
-                anchors.top: parent.top
-                Text {
-                    text: "Task Currency:"
-                    anchors.verticalCenter: parent.verticalCenter
-                    color: "#fff"
-                    font.pixelSize: 18
-                    verticalAlignment: Text.AlignVCenter
+                spacing: 60
+                Rectangle {
+                    width: 150
+                    height: 75
+                    color: "transparent"
+                    Text {
+                        id: currencyText
+                        text: "Task Currency"
+                        color: "#fff"
+                        font { family: localFont.name; pixelSize: 16}
+                    }
+                    Combo {
+                        id: task_currency
+                        model: ["BTC", "USD"]
+                        width: 150
+                        height: 30
+                        anchors.top: currencyText.bottom
+                        anchors.topMargin: 10
+                    }
                 }
-                Combo {
-                    id: task_currency
-                    model: ["BTC", "USD"]
-                    width: 100
-                    height: 25
-                    anchors.verticalCenter: parent.verticalCenter
+                Rectangle {
+                    width: 150
+                    height: 75
+                    color: "transparent"
+                    Text {
+                        id: costText
+                        text: "Task Cost"
+                        color: "#fff"
+                        font { family: localFont.name; pixelSize: 16;}
+                    }
+                    LineEdit {
+                        id: task_cost
+                        height: 30
+                        width: 150
+                        validator: DoubleValidator {}
+                        anchors.top: costText.bottom
+                        anchors.topMargin: 10
+                    }
                 }
-
-                Text {
-                    text: "Task Cost:"
-                    anchors.verticalCenter: parent.verticalCenter
-                    color: "#fff"
-                    font.pixelSize: 18
-                    verticalAlignment: Text.AlignVCenter
-                }
-                LineEdit {
-                    id: task_cost
-                    height: 30
-                    width: 100
-                    validator: DoubleValidator {}
-                }
-                Text {
-                    text: "Category"
-                    anchors.verticalCenter: parent.verticalCenter
-                    color: "#fff"
-                    font.pixelSize: 18
-                    verticalAlignment: Text.AlignVCenter
-                }
-                ComboBox {
-                    id: task_category
-                    model: categories
-                    width: 100
-                    height: 25
-                    anchors.verticalCenter: parent.verticalCenter
+                Rectangle {
+                    width: 150
+                    height: 75
+                    color: "transparent"
+                    Text {
+                        id: categoryText
+                        text: "Category"
+                        color: "#fff"
+                        font { family: localFont.name; pixelSize: 16;}
+                    }
+                    Combo {
+                        id: task_category
+                        model: categories
+                        width: 150
+                        height: 30
+                        anchors.top: categoryText.bottom
+                        anchors.topMargin: 10
+                    }
                 }
 
             }
@@ -163,12 +163,83 @@ Window {
                 id: methodText
                 text: "Payment Methods"
                 color: "#fff"
-                font.pixelSize: 18
-                verticalAlignment: Text.AlignVCenter
-                anchors.top: row.bottom
-                anchors.topMargin: 10
-
+                font { family: localFont.name; pixelSize: 16}
             }
+            Row {
+                id: rowPayment
+                width: parent.width
+                spacing: 30
+                CheckBox {
+                    text: qsTr("Bitcoin")
+                    width: 120
+                }
+                CheckBox {
+                    text: qsTr("Paypal")
+                    width: 120
+                }
+                CheckBox {
+                    text: qsTr("Direct Deposit")
+                    width: 120
+                }
+                CheckBox {
+                    text: qsTr("Paysafe Card")
+                    width: 120
+                }
+            }
+            Row {
+                id: rowPayment2
+                width: parent.width
+                spacing: 30
+                CheckBox {
+                    text: qsTr("Monero")
+                    width: 120
+                }
+                CheckBox {
+                    text: qsTr("Bitcoin Cash")
+                    width: 120
+                }
+                CheckBox {
+                    text: qsTr("Dash")
+                    width: 120
+                }
+                CheckBox {
+                    text: qsTr("Gift Card")
+                    width: 120
+                }
+            }
+            Text {
+                id: deadlineText
+                text: qsTr("Deadline")
+                color: "#fff"
+                font { family: localFont.name; pixelSize: 16}
+            }
+            Datepicker {
+                id: task_deadline
+                height: 30
+                width: 150
+                z: 999
+            }
+            Text {
+                id: keywordText
+                text: qsTr("Insert Keywords")
+                color: "#fff"
+                font { family: localFont.name; pixelSize: 16}
+            }
+            TextArea {
+                id: keywords
+                height: 40
+                anchors.left: parent.left
+                anchors.right: parent.right
+            }
+
+        }
+        Rectangle {
+            id: column
+            height: 400
+            anchors.left: parent.left
+            anchors.right: parent.right
+            color: "transparent"
+            /*
             GridView {
                 id: gridMethod
                 model: createWindow.selectedMethods
@@ -215,8 +286,8 @@ Window {
                     }
 
                 }
-            }
-            Text {
+            } */
+            /*Text {
                 id: deadlineText
                 text: "Deadline"
                 color: "#fff"
@@ -303,7 +374,7 @@ Window {
                         }
                    }
                 }
-            }
+            }*/
         }
 
     }
@@ -312,7 +383,7 @@ Window {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 15
         anchors.right: parent.right
-        anchors.rightMargin: 20
+        anchors.rightMargin: 40
         spacing: 15
         Button {
             id: submitB

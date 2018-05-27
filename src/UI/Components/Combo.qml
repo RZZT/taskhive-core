@@ -3,7 +3,6 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 ComboBox {
     id: control
-    model: ["BTC", "DOGE"]
     inputMethodHints: Qt.ImhNoAutoUppercase
     editable: true
     style: ComboBoxStyle{
@@ -14,7 +13,7 @@ ComboBox {
               text: control.currentText
               color: !control.enabled ? "#DADAD9" : "#6F6E6E"
               anchors.fill: parent
-              font.pixelSize: 22
+              font { family: localFont.name; pixelSize: 16; bold: true}
          }
     }
 }

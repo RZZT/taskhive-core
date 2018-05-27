@@ -155,7 +155,110 @@ ApplicationWindow {
                         anchors.top: titleLayout.bottom
                         anchors.bottom: parent.bottom
                         anchors.leftMargin: 30
-                        model: [["TITLE", "TITLE", "TITLE","TITLE","TITLE","TITLE","TITLE"],["TITLE", "TITLE", "TITLE","TITLE","TITLE","TITLE","TITLE"]]
+                        model: window.tasks.requests
+                    }
+                }
+                Rectangle {
+                    color: "#737373"
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    anchors.top: parent.top
+                    Item {
+                        id: titleLayout2
+                        anchors.right: parent.right
+                        anchors.left: parent.left
+                        anchors.leftMargin: 30
+                        anchors.rightMargin: 20
+                        height: 100
+                        Text {
+                            anchors.left: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: qsTr("Available Offers")
+                            anchors.leftMargin: 20
+                            color: "#FFFFFF"
+                            font { family: localFont.name; pixelSize: 18; }
+                        }
+                        Image {
+                            anchors.right: iconFilter2.left
+                            anchors.rightMargin: 20
+                            id: iconAdd2
+                            source: "images/icon-add.svg"
+                            anchors.verticalCenter: parent.verticalCenter
+                            MouseArea {
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: {
+                                    if(userData.guest){
+                                        warningDialog.open()
+                                    }
+                                    else {
+                                        var createTaskComponent = Qt.createComponent("CreateTask.qml")
+                                        var create_task = createTaskComponent.createObject(window)
+                                        print(createTaskComponent.errorString())
+                                        create_task.show()
+                                        window.selectedType = 'Offer'
+                                    }
+                                }
+                            }
+                        }
+                        Image {
+                            id: iconFilter2
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
+                            source: "images/icon-filter.svg"
+                        }
+                    }
+                    Table {
+                        id: table2
+                        anchors.rightMargin: 20
+                        anchors.right: parent.right
+                        anchors.left: parent.left
+                        anchors.top: titleLayout2.bottom
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 30
+                        model: window.tasks.offers
+                    }
+                }
+                Rectangle {
+                    color: "#737373"
+                    anchors.left: parent.left
+                    anchors.leftMargin: 0
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    anchors.top: parent.top
+                    Item {
+                        id: titleLayout3
+                        anchors.right: parent.right
+                        anchors.left: parent.left
+                        anchors.leftMargin: 30
+                        anchors.rightMargin: 20
+                        height: 100
+                        Text {
+                            anchors.left: parent.left
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: qsTr("My Tasks")
+                            anchors.leftMargin: 20
+                            color: "#FFFFFF"
+                            font { family: localFont.name; pixelSize: 18; }
+                        }
+                        Image {
+                            id: iconFilter3
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
+                            source: "images/icon-filter.svg"
+                        }
+                    }
+                    Table {
+                        id: table3
+                        anchors.rightMargin: 20
+                        anchors.right: parent.right
+                        anchors.left: parent.left
+                        anchors.top: titleLayout3.bottom
+                        anchors.bottom: parent.bottom
+                        anchors.leftMargin: 30
+                        model: window.tasks.offers
                     }
                 }
             }

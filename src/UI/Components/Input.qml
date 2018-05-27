@@ -5,6 +5,7 @@ import QtQuick 2.7
 TextField {
     id: itemText
     horizontalAlignment: TextInput.AlignLeft
+    font { family: localFont.name; pixelSize: 16}
     style: TextFieldStyle {
         textColor: "#3F3F3F"
         placeholderTextColor: "#BABABA"
