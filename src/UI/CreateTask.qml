@@ -7,7 +7,7 @@ import QtQuick.Dialogs 1.2
 import "Components/"
 Window {
     id: createWindow
-    height: 800
+    height: 850
     width: 800
     color: "#0c0c0c"
     property ListModel selectedMethods: ListModel {}
@@ -231,194 +231,34 @@ Window {
                 anchors.left: parent.left
                 anchors.right: parent.right
             }
-
-        }
-        Rectangle {
-            id: column
-            height: 400
-            anchors.left: parent.left
-            anchors.right: parent.right
-            color: "transparent"
-            /*
-            GridView {
-                id: gridMethod
-                model: createWindow.selectedMethods
+            Row {
+                id: buttonsRow
                 anchors.right: parent.right
-                anchors.left: parent.left
-                anchors.top: methodText.bottom
-                height: 100
-                cellHeight: 35
-                cellWidth: 75
-                delegate: Rectangle{
-                    height: 30
-                    width: 70
-                    color: "transparent"
-                        Text {
-                        text: method
-                        color: "#fff"
-                        font.pixelSize: 16
-                    }
-                }
-                footer: Row {
-                    height: 30
-                    width: 150
-                    spacing: 10
-                    ComboBox{
-                        id: paymentMethods
-                        height: 30
-                        width: 100
-                        model: ["BTC", "DOGE"]
-                        visible: false
-                    }
-
-                    Button {
-                        width: 40
-                        height: parent.height
-                        text: "+"
-                        onClicked: {
-                            if(paymentMethods.visible){
-                                createWindow.selectedMethods.append({"method":paymentMethods.currentText})
-                            }
-                            else {
-                                paymentMethods.visible = true
-                            }
+                anchors.rightMargin: 10
+                spacing: 20
+                Button {
+                    id: submitB
+                    text: "Submit"
+                    onClicked:  {
+                        if(task_cost.acceptableInput && (task_title.length > 0) && (task_body.length > 0)){
+                            createWindow.sendDataToThread()
+                            confirmationDialog.open()
                         }
-                    }
-
-                }
-            } */
-            /*Text {
-                id: deadlineText
-                text: "Deadline"
-                color: "#fff"
-                font.pixelSize: 18
-                anchors.top: gridMethod.bottom
-                anchors.topMargin: 10
-            }
-            Datepicker {
-                id: task_deadline
-                anchors.top: deadlineText.bottom
-                height: 30
-                width: 150
-                z: 999
-            }
-            Row{
-                id: row1
-                spacing: 5
-                anchors.top: task_deadline.bottom
-                anchors.topMargin: 10
-                Text {
-                    text: "Insert Keywords"
-                    color: "#fff"
-                    font.pixelSize: 18
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                LineEdit {
-                    id: keyword
-                    height: 30
-                    anchors.verticalCenter: parent.verticalCenter
-                    width: 150
-                    onAccepted: {
-                        createWindow.keywordList.append({"word":keyword.text})
-                        keyword.text = ''
-                    }
-                }
-            }
-            Flow {
-                id: keywords
-                height: 80
-                layoutDirection: Qt.LeftToRight
-                flow: GridLayout.LeftToRight
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: row1.bottom
-                anchors.topMargin: 10
-                spacing: 10
-                Repeater {
-                    model: createWindow.keywordList
-                    delegate: keywordItem
-                }
-            }
-            Component {
-                id: keywordItem
-                Item {
-                    width: childrenRect.width
-                    height: 30
-                    Text {
-                        id: fakeText
-                        text: modelData
-                        font.pixelSize: 18
-                        visible: false
-                    }
-                    Rectangle {
-                        width: fakeText.width + 30
-                        height: 30
-                        Text {
-                            text: "X"
-                            anchors.right: parent.right
-                            anchors.top: parent.top
-                            anchors.rightMargin: 2
-                            anchors.topMargin: 2
-                            MouseArea {
-                                anchors.fill: parent
-                                cursorShape: Qt.PointingHandCursor
-                                onClicked: {
-                                    createWindow.keywordList.remove(index)
-                                }
-                            }
+                        else {
+                            messageDialog.open()
                         }
-                        Text {
-                            text: modelData
-                            font.pixelSize: 18
-                            anchors.centerIn: parent
-                        }
-                   }
-                }
-            }*/
-        }
 
-    }
-    Row {
-        id: buttonsRow
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 15
-        anchors.right: parent.right
-        anchors.rightMargin: 40
-        spacing: 15
-        Button {
-            id: submitB
-            text: "Submit"
-            onClicked:  {
-                if(task_cost.acceptableInput && (task_title.length > 0) && (task_body.length > 0)){
-                    createWindow.sendDataToThread()
-                    confirmationDialog.open()
+                    }
                 }
-                else {
-                    messageDialog.open()
+                Button {
+                    id: cancelB
+                    text: "Cancel"
+                    onClicked: {
+                        createWindow.close()
+                    }
                 }
+            }
 
-            }
-            style: ButtonStyle {
-                label: Label {
-                    text: submitB.text
-                    font.pixelSize: 18
-                    color: "#3F3F3F"
-                }
-            }
-        }
-        Button {
-            id: cancelB
-            text: "Cancel"
-            onClicked: {
-                createWindow.close()
-            }
-            style: ButtonStyle {
-                label: Label {
-                    text: cancelB.text
-                    font.pixelSize: 18
-                    color: "#3F3F3F"
-                }
-            }
         }
     }
     MessageDialog {
