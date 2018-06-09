@@ -31,7 +31,7 @@ Window {
             "task_currency": task_currency.currentText,
             "task_type": window.selectedType === 'Request' ? "Request": "Offer",
             "task_cost": task_cost.text,
-            "task_deadline": task_deadline.text,
+            "task_deadline": task_deadline.selectedDateText,
             "task_escrow_required": 1,
             "task_payment_rate_type": "task",
             "task_categories": ['01'],

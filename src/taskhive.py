@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import Qt, QObject, QModelIndex, QUrl, pyqtSignal, QFileInfo, pyqtSlot, pyqtSignal, QFile, QMimeDatabase, QMimeType, QVariant, QThread
 from PyQt5.QtQml import qmlRegisterType, QQmlEngine, QQmlComponent, QQmlApplicationEngine
 from PyQt5.QtQuick import QQuickView
+from PyQt5.QtGui import QIcon
 from api import Taskhive as TaskhiveAPI
 from database import DatabaseConnection
 import atexit
@@ -227,6 +228,10 @@ class TaskhiveCategories(QObject):
 class Taskhive(QApplication):
     def __init__(self, argv):
         QApplication.__init__(self, argv)
+        QApplication.setWindowIcon(QIcon('UI/images/taskhive-symbol-yellow.svg'))
+        import ctypes
+        myappid = 'mycompany.myproduct.subproduct.version' # arbitrary string
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 
 

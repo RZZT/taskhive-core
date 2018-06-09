@@ -11,6 +11,7 @@ Item {
     height: Math.min(dateField.height, dropdown.height)
 
     property date selectedDate : new Date()
+    property string selectedDateText: dateField.text
     property Window activeWindow
     property var pos : getOffset(dateField)
 
