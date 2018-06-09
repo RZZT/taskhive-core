@@ -13,7 +13,9 @@ Window {
     property ListModel selectedMethods: ListModel {}
     property ListModel keywordList: ListModel {}
     property variant categories: []
-
+    onVisibilityChanged: {
+        task_deadline.closeModal()
+    }
 
     function sendDataToThread(){
 
@@ -95,6 +97,7 @@ Window {
                 id: task_body
                 anchors.left: parent.left
                 anchors.right: parent.right
+                font { family: localFont.name; pixelSize: 16}
             }
             Row{
                 id: row
@@ -217,6 +220,7 @@ Window {
                 id: task_deadline
                 height: 30
                 width: 150
+                activeWindow: createWindow
                 z: 999
             }
             Text {
@@ -230,6 +234,7 @@ Window {
                 height: 40
                 anchors.left: parent.left
                 anchors.right: parent.right
+                font { family: localFont.name; pixelSize: 16}
             }
             Row {
                 id: buttonsRow

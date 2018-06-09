@@ -14,7 +14,7 @@ ScrollView {
          width: parent.width
          height: parent.height
             wrapMode: TextEdit.WordWrap
-            font.pixelSize: 18
+            font { family: localFont.name; pixelSize: 16}
         }
     }
 
