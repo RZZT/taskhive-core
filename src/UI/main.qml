@@ -131,7 +131,7 @@ ApplicationWindow {
                                         warningDialog.open()
                                     }
                                     else {
-                                        var createTaskComponent = Qt.createComponent("CreateTask.qml")
+                                        var createTaskComponent = Qt.createComponent("Contract.qml")
                                         var create_task = createTaskComponent.createObject(window)
                                         print(createTaskComponent.errorString())
                                         create_task.show()

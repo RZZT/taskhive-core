@@ -2,7 +2,6 @@ import QtQuick 2.0
 
 Item {
     id: lineEditItem
-    property int fontSize: 18
     property alias readOnly: input1.readOnly
     property alias text: input1.text
     property alias validator: input1.validator
@@ -26,7 +25,6 @@ Item {
             anchors.fill: parent
             anchors.leftMargin: 4
             anchors.rightMargin: 3
-            font.pixelSize: parent.fontSize
             onAccepted: lineEditItem.accepted()
 
         }
