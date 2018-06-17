@@ -1,6 +1,6 @@
-import QtQuick 2.7
+import QtQuick 2.5
 import QtQuick.Window 2.1
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.4
 import "Components/"
 Window {
     id: window
@@ -18,7 +18,7 @@ Window {
         anchors.top: parent.top
         anchors.topMargin: 20
     }
-    Rectangle {
+    ScrollView {
         id: contractContent
         anchors.top: windowTitle.bottom
         anchors.topMargin: 20
@@ -26,17 +26,9 @@ Window {
         anchors.leftMargin: 40
         anchors.right: parent.right
         anchors.bottom: buttons.top
+        contentHeight: contractLayout.height
+        ScrollBar.vertical: ScrollBar { id: vbar; clip: true }
         clip: true
-        color: "transparent"
-        ScrollBar {
-                id: vbar
-                active: true
-                orientation: Qt.Vertical
-                size: contractContent.height / contractLayout.height
-                anchors.top: parent.top
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-            }
         Column {
             id: contractLayout
             anchors.rightMargin: 10
@@ -431,6 +423,90 @@ Window {
                 wrapMode: Text.WordWrap
                 font { family: localFont.name; pixelSize: 16; }
                 color: "#FFFFFF"
+            }
+            Text {
+                anchors.left: parent.left
+                anchors.leftMargin: 60
+                anchors.right: parent.right
+                text: qsTr("(a) all communications between the parties and the Arbitrator shall be sent from and received at their respective electronic addresses listed in Clauses (1) and (5); and")
+                wrapMode: Text.WordWrap
+                font { family: localFont.name; pixelSize: 16; }
+                color: "#FFFFFF"
+            }
+            Text {
+                anchors.left: parent.left
+                anchors.leftMargin: 60
+                anchors.right: parent.right
+                text: qsTr("(b) periods of time shall be calculated by reference to Universal Time Coordinated, shall not include Saturdays or Sundays, and shall begin on the day following the day on which a statement of claim or statement of defence is sent; and")
+                wrapMode: Text.WordWrap
+                font { family: localFont.name; pixelSize: 16; }
+                color: "#FFFFFF"
+            }
+            Text {
+                anchors.left: parent.left
+                anchors.leftMargin: 60
+                anchors.right: parent.right
+                text: qsTr("(c) the party initiating proceedings (hereafter 'the Claimant') shall com- municate to the other party (hereafter 'the Respondent') and the Arbitrator a statement of claim setting out:")
+                wrapMode: Text.WordWrap
+                font { family: localFont.name; pixelSize: 16; }
+                color: "#FFFFFF"
+            }
+            Text {
+                anchors.left: parent.left
+                anchors.leftMargin: 90
+                anchors.right: parent.right
+                text: qsTr("(i) the alleged factual and contractual basis of the claim; and")
+                wrapMode: Text.WordWrap
+                font { family: localFont.name; pixelSize: 16; }
+                color: "#FFFFFF"
+            }
+            Text {
+                anchors.left: parent.left
+                anchors.leftMargin: 90
+                anchors.right: parent.right
+                text: qsTr("(ii) the amount involved, if any; and")
+                wrapMode: Text.WordWrap
+                font { family: localFont.name; pixelSize: 16; }
+                color: "#FFFFFF"
+            }
+            Text {
+                anchors.left: parent.left
+                anchors.leftMargin: 90
+                anchors.right: parent.right
+                text: qsTr("(iii) the relief or remedy sought; and")
+                wrapMode: Text.WordWrap
+                font { family: localFont.name; pixelSize: 16; }
+                color: "#FFFFFF"
+            }
+            Flow {
+                id: flow3
+                spacing: 5
+                anchors.left: parent.left
+                anchors.leftMargin: 30
+                anchors.right: parent.right
+                Text {
+                    text: qsTr("(d) within")
+                    wrapMode: Text.WordWrap
+                    font { family: localFont.name; pixelSize: 16; }
+                    color: "#FFFFFF"
+                }
+                LineEdit {
+                    text: qsTr("Response time")
+                    height: 30
+                    width: 200
+                }
+                Text {
+                    text: qsTr("days of receiving the statement of claim, the Respondent shall")
+                    wrapMode: Text.WordWrap
+                    font { family: localFont.name; pixelSize: 16; }
+                    color: "#FFFFFF"
+                }
+                Text {
+                    text: qsTr("communicate to the Claimant and the Arbitrator a statement of defence setting out its response to the statement of claim, and including:")
+                    wrapMode: Text.WordWrap
+                    font { family: localFont.name; pixelSize: 16; }
+                    color: "#FFFFFF"
+                }
             }
         }
     }
