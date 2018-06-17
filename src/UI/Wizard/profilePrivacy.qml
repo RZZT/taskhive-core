@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
 Item {
-    property variant selected: 'Private'
+    property string selected: 'Private'
     Text {
         id: profileTitle
         anchors.left: parent.left

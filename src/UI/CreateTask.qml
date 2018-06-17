@@ -84,7 +84,6 @@ Window {
             LineEdit {
                 id: task_title
                 height: 30
-                fontSize: 16
                 width: parent.width
             }
             Text {
