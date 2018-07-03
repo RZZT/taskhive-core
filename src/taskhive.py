@@ -69,6 +69,7 @@ class TaskThread(QThread):
         self._localAPI.create_bitmessage_api()
         while not self._paused:
             result = self._localAPI.getPostings()
+            print(result)
             connections, _, _, _ = self._localAPI.client_connections()
             result['connections'] = connections
             self.newTask.emit(result)
@@ -276,9 +277,8 @@ if __name__ == "__main__":
         BitMessageAPI = API.run_bitmessage()
     API.setup_channels()
     if API.run_bm.poll() is None:
-        print(API.find_running_bitmessage_port())
+        API.find_running_bitmessage_port()
     connections, _, _, _ = API.client_connections()
-    print(connections)
     # API.create_posting(test_json)
     # API.generate_and_store_keys()
     engine = QQmlApplicationEngine()

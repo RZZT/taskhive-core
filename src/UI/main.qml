@@ -131,7 +131,7 @@ ApplicationWindow {
                                         warningDialog.open()
                                     }
                                     else {
-                                        var createTaskComponent = Qt.createComponent("MessageWindow.qml")
+                                        var createTaskComponent = Qt.createComponent("CreateTask.qml")
                                         var create_task = createTaskComponent.createObject(window)
                                         print(createTaskComponent.errorString())
                                         create_task.show()
@@ -218,7 +218,7 @@ ApplicationWindow {
                         anchors.top: titleLayout2.bottom
                         anchors.bottom: parent.bottom
                         anchors.leftMargin: 30
-                        model: window.tasks.offers
+                        model: window.tasks.requests
                     }
                 }
                 Rectangle {
@@ -782,7 +782,6 @@ ApplicationWindow {
          Component.onCompleted: {
              var profile = Profile.verifyProfile()
              window.userData = profile
-             print(window.userData)
              TaskThread.start()
          }
     }

@@ -13,18 +13,49 @@ Window {
     property ListModel selectedMethods: ListModel {}
     property ListModel keywordList: ListModel {}
     property variant categories: []
+    property variant category_hex: []
+    property variant payment_methods: []
+    title: "Taskhive"
     onVisibilityChanged: {
         task_deadline.closeModal()
     }
 
     function sendDataToThread(){
 
-        var keywords = []
-        for(var i=0; i<createWindow.keywordList.count; i++){
-            keywords.push(keywordList.get(i).word);
+        var keywordsList = keywords.text.split(",")
+
+        if (bitcoin.checked) {
+            payment_methods.push("Bitcoin")
         }
+        if (paypal.checked) {
+            payment_methods.push("Paypal")
+        }
+        if (direct_deposit.checked) {
+            payment_methods.push("Direct Deposit")
+        }
+
+        if (paysafe_card.checked) {
+            payment_methods.push("Paysafe Card")
+        }
+
+        if (monero.checked) {
+            payment_methods.push("Monero")
+        }
+
+        if (dash.checked) {
+            payment_methods.push("Dash")
+        }
+
+        if (bitcoin_cash.checked) {
+            payment_methods.push("Bitcoin Cash")
+        }
+
+        if (bitcoin_cash.checked) {
+            payment_methods.push("Gift Card")
+        }
+
         var JSON_DATA = {
-            "task_keywords": keywords,
+            "task_keywords": keywordsList,
             "task_references": ["URL1", "URL2"],
             "task_body": task_body.text,
             "task_title": task_title.text,
@@ -34,12 +65,14 @@ Window {
             "task_deadline": task_deadline.selectedDateText,
             "task_escrow_required": 1,
             "task_payment_rate_type": "task",
-            "task_categories": ['01'],
-            'task_payment_methods': ['BTC', 'DGE'],
+            "task_categories": [createWindow.category_hex[task_category.currentIndex]],
+            'task_payment_methods': payment_methods,
             'task_escrow_recommendation': 'BITCOIN-PUBKEY',
             'task_license': 'CC BY 4.0',
             'task_entropy': 'CURRENTLY-NOT-IN-USE'
         }
+        print("TESTING")
+        print(createWindow.category_hex[task_category.currentIndex])
         Task.run(JSON_DATA)
 
     }
@@ -153,7 +186,7 @@ Window {
                     Combo {
                         id: task_category
                         model: categories
-                        width: 150
+                        width: 200
                         height: 30
                         anchors.top: categoryText.bottom
                         anchors.topMargin: 10
@@ -172,18 +205,22 @@ Window {
                 width: parent.width
                 spacing: 30
                 CheckBox {
+                    id: bitcoin
                     text: qsTr("Bitcoin")
                     width: 120
                 }
                 CheckBox {
+                    id: paypal
                     text: qsTr("Paypal")
                     width: 120
                 }
                 CheckBox {
+                    id: direct_deposit
                     text: qsTr("Direct Deposit")
                     width: 120
                 }
                 CheckBox {
+                    id: paysafe_card
                     text: qsTr("Paysafe Card")
                     width: 120
                 }
@@ -193,18 +230,22 @@ Window {
                 width: parent.width
                 spacing: 30
                 CheckBox {
+                    id: monero
                     text: qsTr("Monero")
                     width: 120
                 }
                 CheckBox {
+                    id: bitcoin_cash
                     text: qsTr("Bitcoin Cash")
                     width: 120
                 }
                 CheckBox {
+                    id: dash
                     text: qsTr("Dash")
                     width: 120
                 }
                 CheckBox {
+                    id: giftcard
                     text: qsTr("Gift Card")
                     width: 120
                 }
@@ -244,7 +285,10 @@ Window {
                     id: submitB
                     text: "Submit"
                     onClicked:  {
-                        if(task_cost.acceptableInput && (task_title.length > 0) && (task_body.length > 0)){
+                        print(task_cost.acceptableInput)
+                        print(task_title.text.length)
+                        print(task_body.text.length)
+                        if(task_cost.acceptableInput && (task_title.text.length > 0) && (task_body.text.length > 0)){
                             createWindow.sendDataToThread()
                             confirmationDialog.open()
                         }
@@ -285,11 +329,13 @@ Window {
     }
     Component.onCompleted: {
         var cats = TaskhiveCategories.getCategories();
-        print(cats)
+        var cats_k = []
         var categoriesNames = [];
-        for(var i = 0; i<cats.length;i++){
-            categoriesNames.push(cats[i].name);
+        for(var i = 0; i<cats.categories.length;i++){
+            categoriesNames.push(cats.categories[i].name);
+            cats_k.push(cats.categories[i].hex);
         }
         createWindow.categories = categoriesNames;
+        createWindow.category_hex = cats_k
     }
 }

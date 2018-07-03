@@ -28,7 +28,7 @@ Window {
         Text {
             id: title
             text: qsTr("Private Message with ") + messageWindow.user
-            anchors.topMargin: 20
+            anchors.topMargin: 30
             anchors.horizontalCenter: parent.horizontalCenter
             font { family: localFont.name; pixelSize: 16; bold: true }
             color: "#FFFFFF"

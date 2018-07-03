@@ -20,14 +20,14 @@ Item {
             source: "../images/graphic-rating-hex-02.svg" }', honeycombParent, 'testimage1');
                     currentX = newObject.x
                     counter++;
-                    print(counter + ': '+ newObject.x + ' - ' + newObject.y );
+                    // print(counter + ': '+ newObject.x + ' - ' + newObject.y );
                 }
                 else {
                     if(!db){
                         currentY = 0;
                         var newObject1 = Qt.createQmlObject('import QtQuick 2.0; import QtGraphicalEffects 1.0; Image { x:' + Math.ceil(currentX - 27) + '; y:'+ currentY +'
                 source: "../images/graphic-rating-hex-02.svg" }', honeycombParent, 'testimage1');
-                        print(counter + ': '+ newObject1.x + ' - ' + newObject1.y );
+                        // print(counter + ': '+ newObject1.x + ' - ' + newObject1.y );
                         db = true;
                         counter++;
                     }
@@ -36,7 +36,7 @@ Item {
 
                         var newObject2 = Qt.createQmlObject('import QtQuick 2.0; import QtGraphicalEffects 1.0; Image { x:' + Math.ceil(currentX - 27) +'; y:'+ currentY +'
                 source: "../images/graphic-rating-hex-02.svg" }', honeycombParent, 'testimage1');
-                        print(counter + ': '+ newObject2.x + ' - ' + newObject2.y );
+                        // print(counter + ': '+ newObject2.x + ' - ' + newObject2.y );
                         counter = 0;
                         currentY = 16;
                         currentX = newObject2.x
@@ -55,14 +55,14 @@ Item {
             source: "../images/graphic-rating-hex-02.svg" }', honeycombParent, 'testimage1');
                     currentX = newObject.x
                     counter++;
-                    print(counter + ': '+ newObject.x + ' - ' + newObject.y );
+                    /// print(counter + ': '+ newObject.x + ' - ' + newObject.y );
                 }
                 else {
                     if(!db){
                         currentY = 0;
                         var newObject1 = Qt.createQmlObject('import QtQuick 2.0; import QtGraphicalEffects 1.0; Image { x:' + Math.ceil(currentX + 27) + '; y:'+ currentY +'
                 source: "../images/graphic-rating-hex-02.svg" }', honeycombParent, 'testimage1');
-                        print(counter + ': '+ newObject1.x + ' - ' + newObject1.y );
+                        // print(counter + ': '+ newObject1.x + ' - ' + newObject1.y );
                         db = true;
                         counter++;
                     }
@@ -71,7 +71,7 @@ Item {
 
                         var newObject2 = Qt.createQmlObject('import QtQuick 2.0; import QtGraphicalEffects 1.0; Image { x:' + Math.ceil(currentX + 27) +'; y:'+ currentY +'
                 source: "../images/graphic-rating-hex-02.svg" }', honeycombParent, 'testimage1');
-                        print(counter + ': '+ newObject2.x + ' - ' + newObject2.y );
+                        // print(counter + ': '+ newObject2.x + ' - ' + newObject2.y );
                         counter = 0;
                         currentY = 16;
                         currentX = newObject2.x

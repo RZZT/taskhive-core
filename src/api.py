@@ -315,6 +315,77 @@ class Taskhive(object):
         return private_key, public_key, address, address_encoded
 
 
+    def create_reputation_channel(self, public_key):
+        bitmessage_add = self.create_chan("reputation_{}".format(public_key))
+        return bitmessage_add
+
+
+    def join_reputation_channel(self, bitmessage_add, public_key):
+        return self.join_chan(bitmessage_add, "reputation_{}".format(public_key))
+
+
+    def verify_reputation(self, json_data):
+        # REPUTATION JSON STRUCTURE:
+        # {
+        #   "payload": "{
+        #       "task_id": "TASKHIVE-ID",
+        #       "message": "User was a really good worker. +1",
+        #       "score": 5,
+        #       "date": "27/06/2018",
+        #       "pub_key": "TASKHIVE-PUB"
+        #   }",
+        #   "signature": "TASKHIVE-SIGNED-"
+        # }
+        payload = json_data['payload']
+        if 'task_id' in payload:
+            # check if task_id is valid
+         else:
+            return False
+
+        if 'message' not in payload:
+            return False
+
+        if 'score' not in payload:
+            return False
+
+        if 'date' not in payload:
+            return False
+        signature = bytes(json_data['signature'].encode('utf8'))
+        decoded_sign = base64.b64decode(signature)
+        temporary_json = json.loads(data['payload'])
+        pub_key = temporary_json['pub_key']
+        add  = address_generator.address_from_public(bytes(pub_key.encode('utf8')), VERSION_BYTE) 
+        encoded_address = address_generator.base58_check_encoding(add)
+        result = bitcoin.verify_message(encoded_address, decoded_sign, bytes(data['task_data'].encode('utf8')))
+        if not result:
+            print( "Sign not valid")
+            raise APIError(1, 'Signature is not valid')
+        else: 
+            return True
+
+
+
+
+    def read_reputation(self, bitmessage_add):
+        msgs = self.inbox()
+        for msg in msgs:
+            if msg['toAddress'] == bitmessage_add:
+                json_data = msg['message']
+                decoded_body = base64.b64decode(json_data)
+                try:
+                    body_json = base64.b64decode(decoded_body)
+                except:
+                    continue
+                
+                try:
+                    body_json = json.loads(body_json.decode('utf-8'))
+                    if isinstance(body_json, str):
+                        continue
+                except (TypeError, UnicodeDecodeError, ValueError, JSONDecodeError):
+                    # raise APIError(1, 'JSON Data is incorrect')
+                    continue
+
+
 
     def verifyProfile(self):
         userData = {
@@ -627,7 +698,6 @@ class Taskhive(object):
                         'type': chan_type.id
                     }
                     channel_INFO.append(chan)
-        print(channel_INFO)
         self.db.storeChannels(channel_INFO)
 
 
@@ -709,8 +779,6 @@ class Taskhive(object):
                                 "msgid": msg['msgid']
                             })
         return messages
-
-
 
 
 
@@ -805,7 +873,6 @@ class Taskhive(object):
         elif task_type.lower() == 'request':
             prelim, signed_json = self.create_request_json(task_INFO)
         channels = self.db.getChannelByCategory(categories)
-
         for chan in channels:
             print("Sending messages...")
             encoded_json = base64.b64encode(bytes(json.dumps(signed_json).encode('utf8')))
@@ -981,6 +1048,8 @@ class Taskhive(object):
 #    def read_offer_json(self):
 
 #    def read_terminate_json(self):
+
+    def create
 
     def unread_message_info(self):
         inbox_messages = json.loads(self.api.getAllInboxMessages())
