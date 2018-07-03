@@ -57,6 +57,15 @@ class Task(Base):
 	bit_address = Column(String)
 	is_active = Column(Boolean)
 
+
+class Reputation(Base):
+	__tablename__ = 'reputation'
+	task_id = Column(Integer, ForeignKey('task.id'))
+	message = Column(String)
+	score = Column(Integer)
+	pub_key = Column(Integer)
+	signature = Column(String)
+
 Base.metadata.create_all(engine)
 
 class DatabaseConnection(object):
@@ -83,30 +92,40 @@ class DatabaseConnection(object):
 		cats = []
 		count = 0
 		firstRun = True
+
+		# for cat in self.ses.query(Category).all():
+		# 	hex_codes = [cat.id[i:i+2] for i in range(0, len(cat.id), 2)]
+		# 	if firstRun:
+		# 		cats.append({
+		# 			"hex": cat.id,
+		# 			"name": cat.name,
+		# 			"sub_categories": []
+		# 			})
+		# 		firstRun = False
+		# 		continue
+		# 	if len(hex_codes) > 1:
+		# 		cats[count]['sub_categories'].append({
+		# 				"hex": cat.id,
+		# 				"name": cat.name
+
+		# 			})
+		# 	else:
+		# 		cats.append({
+		# 			"hex": cat.id,
+		# 			"name": cat.name,
+		# 			"sub_categories": []
+		# 			})
+		# 		count += 1
+
 		for cat in self.ses.query(Category).all():
 			hex_codes = [cat.id[i:i+2] for i in range(0, len(cat.id), 2)]
-			if firstRun:
-				cats.append({
-					"hex": cat.id,
-					"name": cat.name,
-					"sub_categories": []
-					})
-				firstRun = False
-				continue
+			print(hex_codes)
 			if len(hex_codes) > 1:
-				cats[count]['sub_categories'].append({
-						"hex": cat.id,
-						"name": cat.name
-
-					})
-			else:
 				cats.append({
 					"hex": cat.id,
-					"name": cat.name,
-					"sub_categories": []
-					})
-				count += 1
-
+					"name": cat.name
+				})
+		print(cats)
 		return {"categories":cats}
 
 
@@ -138,6 +157,7 @@ class DatabaseConnection(object):
 			cat = [category[i:i+2] for i in range(0, len(category), 2)][0]
 			chan = self.ses.query(Channel).filter_by(channel_HEX=cat).first()
 			print(cat, category)
+			print(chan)
 			if chan is not None:
 				if chan.channel_HEX in channels:
 					continue
@@ -198,5 +218,9 @@ class DatabaseConnection(object):
 				self.ses.commit()
 			except IntegrityError:
 				self.ses.rollback()
+
+
+
+	def storeReputation(self, )
 
 
