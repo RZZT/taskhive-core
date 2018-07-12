@@ -358,11 +358,9 @@ class Taskhive(object):
         encoded_address = address_generator.base58_check_encoding(add)
         result = bitcoin.verify_message(encoded_address, decoded_sign, bytes(data['task_data'].encode('utf8')))
         if not result:
-            print( "Sign not valid")
             raise APIError(1, 'Signature is not valid')
         else: 
             return True
-
 
 
 
@@ -384,7 +382,38 @@ class Taskhive(object):
                 except (TypeError, UnicodeDecodeError, ValueError, JSONDecodeError):
                     # raise APIError(1, 'JSON Data is incorrect')
                     continue
+                reputation_scores = []
+                if self.verify_reputation(body_json):
+                    reputation_scores.append(body_json['payload']['score'])
+        return reputation
 
+    def add_reputation(self, score, message, task_id, date, pub_key):
+        private_key, pubkey, addr, addr_encoded = self.retrieve_keys()
+        bm_address = base64.b64decode("reputation_{}".format(pubkey))
+        rated_addr = base64.b64decode("reputation_{}".format(pub_key))
+        rep = self.read_reputation(bm_address)
+        if not rep:
+            raise APIError(3, 'User needs positive reputation')
+            return False
+
+        payload = {
+            "task_id": task_id,
+            "score": score,
+            "message": message,
+            "date": date,
+            "pub_key": pubkey
+        }
+        json_string = json.dumps(payload)
+        wif_private_key = address_generator.private_to_wif(private_key, address_generator.WIF_VERSION_BYTE, address_generator.TYPE_PUB)
+        sign = bitcoin.sign_message_with_wif_privkey(wif_private_key, json_string)
+        encoded_sign = base64.b64encode(sign)
+        final_signed_json = {
+            "payload": json_string,
+            "signature": encoded_sign.decode('utf-8')
+        }
+        msg = base64.b64encode(bytes(json.dumps(final_signed_json).encode('utf8')))
+        status = self.send_message(bm_address, rated_addr, 'TEST {} GMT'.format(strftime("%Y-%m-%d %H:%M:%S", gmtime())), msg)
+        return status
 
 
     def verifyProfile(self):
